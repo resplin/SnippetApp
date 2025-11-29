@@ -1,30 +1,22 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const snippetsRouter = require('./routes/snippets');
-const tagsRouter = require('./routes/tags');
-const prisma = require('./db');
-
+import express from "express";
+import cors from "cors";
+import snippetRoutes from './routes/snippetRoutes.js';
+import tagRoutes from './routes/tagRoutes.js';
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+const PORT = 5000;
 
+const corsOptions = {
+    origin: 'http://localhost:5173'
+}
 
-app.use('/api/snippets', snippetsRouter);
-app.use('/api/tags', tagsRouter);
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use('/snippet', snippetRoutes);
+app.use('/tag', tagRoutes);
 
-
-app.get('/', (req, res) => res.json({ ok: true }));
-
-
-const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`Backend listening on ${port}`));
-
-
-// graceful shutdown
-process.on('SIGINT', async () => {
-    console.log('Shutting down...');
-    await prisma.$disconnect();
-    process.exit(0);
+app.get("/", (req, res) => {
+    res.json({ ok: true });
 });
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
