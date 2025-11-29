@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Snippet {
+  id          Int          @id @default(autoincrement())
+  code        String
+  description String
+  createdAt   DateTime     @default(now())
+  tags        SnippetTag[]
+}
+
+model Tag {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  createdAt DateTime     @default(now())
+  snippets  SnippetTag[]
+}
+
+model SnippetTag {
+  id        Int     @id @default(autoincrement())
+  snippet   Snippet @relation(fields: [snippetId], references: [id])
+  snippetId Int
+  tag       Tag     @relation(fields: [tagId], references: [id])
+  tagId     Int
+
+  @@unique([snippetId, tagId])
+}
