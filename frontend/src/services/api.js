@@ -1,4 +1,4 @@
-const BASE = "http://localhost:4000/api";
+const BASE = "http://localhost:5000/api";
 
 export const api = {
   async searchSnippets(q) {
