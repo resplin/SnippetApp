@@ -26,11 +26,27 @@ export default function Header() {
                             </li>
                             <li className="nav-item">
                                 <NavLink
+                                    to="/search"
+                                    className={({ isActive }) =>
+                                        isActive ? `nav-link active` : 'nav-link'
+                                    }
+                                >Search</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
                                     to="/snippet-editor"
                                     className={({ isActive }) =>
                                         isActive ? `nav-link active` : 'nav-link'
                                     }
                                 >Snippet Editor</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/tag-manager"
+                                    className={({ isActive }) =>
+                                        isActive ? `nav-link active` : 'nav-link'
+                                    }
+                                >Tag Manager</NavLink>
                             </li>
                         </ul>
                     </div>

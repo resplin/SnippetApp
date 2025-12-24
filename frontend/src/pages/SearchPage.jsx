@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SnippetList from "../components/SnippetList";
+import SnippetList from "../components/Snippet/List";
 import { api } from "../services/api";
 
 export default function SearchPage({ onEdit }) {
