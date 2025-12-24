@@ -8,10 +8,11 @@
         "dev": "nodemon src/index.js",
         "prisma:generate": "prisma generate",
         "prisma:migrate": "node init-db.js",
+        "prisma:push": "prisma db push",
+        "prisma:seed": "node prisma/seed.js",
+        "db:deploy": "npx prisma migrate deploy && npx prisma generate",
+        "db:setup": "npm run prisma:generate && npm run prisma:migrate",
         "test": "vitest"
-    },
-    "prisma": {
-        "seed": "node prisma/seed.js"
     },
     "author": "Randy Esplin",
     "license": "ISC",
@@ -27,5 +28,8 @@
         "prisma": "^6.19.0",
         "supertest": "^7.1.3",
         "vitest": "^3.2.4"
+    },
+    "prisma": {
+        "seed": "node prisma/seed.js"
     }
 }

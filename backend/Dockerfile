@@ -9,16 +9,17 @@ WORKDIR /app
 
 # Copy package.js and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
+
+# Generate Prisma client before runtime
+COPY prisma ./prisma
+RUN npx prisma generate
 
 # Copy all files
 COPY . .
-
-# Generate Prisma client before runtime
-RUN npx prisma generate
 
 # Expose port 5000
 EXPOSE 5000
 
 # Automatically run migrations and start the app
-CMD ["sh", "-c", "npm run prisma:migrate && npm start"]
+CMD ["sh", "-c", "npx prisma db push && npx prisma db seed && npm run dev"]
